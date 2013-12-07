@@ -10,10 +10,6 @@ if (process.env.BAE_ENV_AK) {
     var db_host = 'localhost';
     var db_port = '3306';
     var db_name = 'chatroom';
-
-    if (request.headers.host == "roomchat.im") {
-        password = 'admin';
-    }
 }
 
 var option = {
@@ -23,5 +19,14 @@ host: db_host,
       password: password,
       database: db_name
 }
-
+var os = require("os");
+if (os.networkInterfaces().eth0[0].address == '106.186.23.182') {
+    password = 'admin';
+    option.socketPath = '/var/run/mysqld/mysqld.sock';
+}
 module.exports=option;
+
+if (require.main === module) {
+    console.log(module.exports)
+    console.log(os.networkInterfaces().eth0[0])
+}
