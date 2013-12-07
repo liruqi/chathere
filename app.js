@@ -16,6 +16,9 @@ app.get('/user',function(req,res){
 app.post('/user',function(req,res){
   userController.add(req,res);
 });
+app.post('/userlogin',function(req,res){
+  userController.login(req,res);
+});
 
 app.get('/message',function(req,res){
   messageController.get(req,res);

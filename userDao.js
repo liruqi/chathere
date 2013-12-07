@@ -44,3 +44,24 @@ User.prototype.getUserById=function getById(user_id,callback){
                         );
         });
 }
+
+User.prototype.checkUser=function(email,password,callback){
+      var client=mysql.createConnection(option);
+      client.connect(function(err){
+        if(err){
+          console.log(err);
+          return;
+        }
+        client.query('select * from user where email=? and password=?',[email,password],function(err,result){
+          console.log(result);
+          var msg={};
+          if(result.length==0){
+            msg.code=1;
+          }else{
+            msg.code=0;
+            msg.user=result[0];
+          }
+          callback(err,JSON.stringify(msg));
+        });
+      });
+};
