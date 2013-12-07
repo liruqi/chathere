@@ -21,7 +21,9 @@ var RoomController=function($scope,$http){
         var p=$http({method:'GET',
                 url:'/room',
                 params:params });
+        console.log(params);
         p.success(function(response,status,headers,config){
+                        console.log(response);
                 if(response.pois.length > 0){
                     $scope.room=response.pois[0];
                     window.location=("/room.html?rid=" + $scope.room.uid); 
