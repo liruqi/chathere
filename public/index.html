@@ -14,10 +14,14 @@
 <script type="text/javascript">
 var RoomController=function($scope,$http){
         var showRoom=function(position){
-                var p=$http({method:'GET',
-                                url:'/room',
-                                params:{longitude:position.coords.longitude,latitude:position.coords.latitude}});
-                p.success(function(response,status,headers,config){
+            var params = {}
+            if (position) {
+                params = {longitude:position.coords.longitude,latitude:position.coords.latitude}
+            }
+            var p=$http({method:'GET',
+                            url:'/room',
+                            params:params });
+            p.success(function(response,status,headers,config){
                                 if(response.pois.length > 0){
                                 $scope.room=response.pois[0];  
                                 }else{
@@ -29,9 +33,7 @@ var RoomController=function($scope,$http){
                                 });
         };
 
-        navigator.geolocation.getCurrentPosition(showRoom);
-
-
+        navigator.geolocation.getCurrentPosition(showRoom, function(){showRoom()} );
 
 };
 </script>
