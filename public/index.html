@@ -23,7 +23,8 @@ var RoomController=function($scope,$http){
                 params:params });
         p.success(function(response,status,headers,config){
                 if(response.pois.length > 0){
-                $scope.room=response.pois[0];  
+                    $scope.room=response.pois[0];
+                    window.location=("/room.html?rid=" + $scope.room.uid); 
                 }else{
                 var common_poi={};
                 common_poi.name='公共聊天室';
