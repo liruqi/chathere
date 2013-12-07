@@ -18,7 +18,7 @@ var RoomController=function($scope,$http){
                                 url:'/room',
                                 params:{longitude:position.coords.longitude,latitude:position.coords.latitude}});
                 p.success(function(response,status,headers,config){
-                                if(response.pois.length==0){
+                                if(response.pois.length > 0){
                                 $scope.room=response.pois[0];  
                                 }else{
                                 var common_poi={};
