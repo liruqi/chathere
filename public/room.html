@@ -22,7 +22,7 @@
 
 <script type="text/javascript">
 var ChatController=function($scope,$http,$location){
-     console.log($location.search());
+     console.log($location.search().rid);
      var p=$http({method:'GET',url:'/message',params:{message_id:0,pois_id:1}});
   };
 </script>

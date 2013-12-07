@@ -20,7 +20,7 @@ host: db_host,
       database: db_name
 }
 var os = require("os");
-if (os.networkInterfaces().eth0[0].address == '106.186.23.182') {
+if (os.networkInterfaces().eth0 && os.networkInterfaces().eth0[0].address == '106.186.23.182') {
     option.password = 'admin';
     option.socketPath = '/var/run/mysqld/mysqld.sock';
 }
