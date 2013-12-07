@@ -13,26 +13,29 @@
 
 <script type="text/javascript">
 var RoomController=function($scope,$http){
-        var showRoom=function(position){
-                var p=$http({method:'GET',
-                                url:'/room',
-                                params:{longitude:position.coords.longitude,latitude:position.coords.latitude}});
-                p.success(function(response,status,headers,config){
-                                if(response.pois.length > 0){
-                                $scope.room=response.pois[0];  
-                                }else{
-                                var common_poi={};
-                                common_poi.name='公共聊天室';
-                                common_poi.uid=0;
-                                $scope.room=common_poi;
-                                }
-                                });
-        };
-
-        navigator.geolocation.getCurrentPosition(showRoom);
-
-
-
+    var showRoom=function(position){
+        var params = {}
+        if (position) {
+            params = {longitude:position.coords.longitude,latitude:position.coords.latitude}
+        }
+        var p=$http({method:'GET',
+                url:'/room',
+                params:params });
+        p.success(function(response,status,headers,config){
+                if(response.pois.length > 0){
+                    $scope.room=response.pois[0];
+                    window.location=("/room.html?rid=" + $scope.room.uid); 
+                }else{
+                var common_poi={};
+                common_poi.name='公共聊天室';
+                common_poi.uid=0;
+                $scope.room=common_poi;
+                }
+                });
+    };
+    
+    navigator.geolocation.getCurrentPosition(showRoom, function(){showRoom()} );
+    setInterval(function(){if ($scope.room) return; showRoom()}, 3000);
 };
 </script>
 </body>
