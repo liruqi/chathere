@@ -1,0 +1,5 @@
+#container{width:320px;margin:0 auto;}
+header{text-align:center;}
+html body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, fieldset, input, textarea, p, th, td, img, em {
+margin: 0;padding: 0;list-style-type:none;
+}

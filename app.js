@@ -1,6 +1,7 @@
 var express=require('express');
 var userController=require('./userController');
 var roomController=require('./roomController');
+var messageController=require('./messageController')
 var app=new express();
 
 app.configure(function(){
@@ -21,7 +22,7 @@ app.get('/message',function(req,res){
 });
 
 app.post('/message',function(req,res){
-  
+ messageController.add(req,res); 
 });
 
 app.get('/room',function(req,res){
