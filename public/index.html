@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+<meta charset="UTF-8">
+<title>聊天室</title>
+<script type="text/javascript" src="/js/angular.js"></script>
+</head>
+<body ng-controller="RoomController">
+<header>
+        {{room.name}}
+</header>
+
+
+<script type="text/javascript">
+var RoomController=function($scope,$http){
+        var showRoom=function(position){
+                var p=$http({method:'GET',
+                                url:'/room',
+                                params:{longitude:position.coords.longitude,latitude:position.coords.latitude}});
+                p.success(function(response,status,headers,config){
+                                if(response.pois.length==0){
+                                $scope.room=response.pois[0];  
+                                }else{
+                                var common_poi={};
+                                common_poi.name='公共聊天室';
+                                common_poi.uid=0;
+                                $scope.room=common_poi;
+                                }
+                                });
+        };
+
+        navigator.geolocation.getCurrentPosition(showRoom);
+
+
+
+};
+</script>
+</body>
+</html>
