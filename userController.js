@@ -22,5 +22,16 @@ var get=function(req,res){
                                 res.end();
                         });
 };
+
+var login=function(req,res){
+  var email=req.body.email;
+  var password=req.body.email;
+  var newUser=new User({});
+  newUser.checkUser(email,password,function(err,result){
+    res.write(result);
+    res.end();
+  });
+};
 exports.get=get;
 exports.add=add;
+exports.login=login;
