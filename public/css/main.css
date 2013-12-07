@@ -1,5 +1,16 @@
-#container{width:320px;margin:0 auto;}
+.clear{clear:both;}
+#container{width:320px;margin:0 auto;border:1px solid black;border-radius:6px;}
 header{text-align:center;}
 html body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, fieldset, input, textarea, p, th, td, img, em {
 margin: 0;padding: 0;list-style-type:none;
 }
+#container header{line-height:30px;background:#6B7888;color:white;}
+#chatContainer{background:#EFF3F7;overflow:hidden;}
+#chatContainer ul{border-bottom:1px solid black;padding:0 6px 16px;}
+#chatContainer ul .nickname{line-height:30px;color:#ccc;}
+#chatContainer ul .msg-content{line-height:30px;color:black;padding:3px 6px;background:white;border-radius:5px;}
+#chatContainer ul p{max-width:80%;}
+#chatContainer li.msg-right p{float:right;}
+#chatContainer #chat-editor{position:fixed;bottom:0px;height:50px;width:320px;}
+#chat-editor input[type=text]{width:260px;height:30px}
+#chat-editor input[type=submit]{background:#4f739f;color:white;float:right;height:32px;padding:0 5px;border:none;border-radius:5px;margin-right:10px}

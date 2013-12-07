@@ -11,20 +11,38 @@
         <header>皇冠大厦聊天室</header>
         <div id="chatContainer" ng-controller="ChatController">
                 <ul>
-                        <li><label>第一位</label><p>这里是哪里啊</p></li>
-                        <li>
-                        <label for="">第二位</label>
-                        <p>我也不知道啊</p>
+                        <li ng-repeat="msg in messages" class={{'msg-'+msg.position}}>
+                          <p class="nickname clear">{{msg.nickname}}</p>
+                          <p class="msg-content clear">{{msg.content}}</p>
                         </li>
                 </ul>
+                <div id="chat-editor">
+                        <input type="text"><input type="submit" value="发送">
+                </div>
         </div>
 </div>
 
 <script type="text/javascript">
-var ChatController=function($scope,$http,$location){
-     console.log($location.search().rid);
-     var p=$http({method:'GET',url:'/message',params:{message_id:0,pois_id:1}});
-  };
+var ChatController=function($scope,$http,$window){
+     var href=$window.location.href;
+     var rid=href.match(/\\?id=(.*)/)[1];
+     var user_id=localStorage.user_id||1;
+
+     var p=$http({method:'GET',url:'/message',params:{message_id:0,pois_id:rid}});
+     p.success(function(response,status){
+                     for(var index in response){
+                     if(response[index].user_id==user_id){
+                     response[index].position='right';
+                     }else{
+                     response[index].position='left';
+                     }
+                     }
+                     $scope.messages=response;
+                     console.log(response);
+                     }
+              );
+
+};
 </script>
 </body>
 </html>

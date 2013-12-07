@@ -37,7 +37,7 @@ Message.prototype.getMessagesAfterId=function(message_id,pois_id,callback){
                         console.log(err);
                         return;
                 } 
-                client.query('select * from message where message_id>? and pois_id=?',
+                client.query('select content,message_id,nickname,message.user_id from message join user on message.user_id=user.user_id where message_id>? and pois_id=?',
                         [message_id,pois_id],
                         function(err,result){
                                 console.log(result);
