@@ -6,8 +6,8 @@ var get=function(req,res){
 
         var longitude=req.query.longitude;
         var latitude=req.query.latitude;
-        longitude=116.322987;
-        latitude=39.983424;
+//        longitude=116.322987;
+  //      latitude=39.983424;
         var position={
                 longitude:longitude,
                 latitude:latitude
