@@ -27,7 +27,7 @@ var RoomController=function($scope,$http){
                 if(response.pois.length > 0){
                     localStorage.room = response.pois[0];
                     $scope.room=response.pois[0];
-                    window.location=("/room.html?rid=" + $scope.room.uid); 
+                    window.location=("/room.html?rid=" + $scope.room.id); 
                 }else{
                 var common_poi={};
                 common_poi.name='公共聊天室';
@@ -38,7 +38,7 @@ var RoomController=function($scope,$http){
     };
     
     navigator.geolocation.getCurrentPosition(showRoom, function(){showRoom()} );
-    setInterval(function(){if ($scope.room) return; showRoom()}, 3000);
+    setTimeout(function(){if ($scope.room) return; showRoom()}, 3000);
 };
 </script>
 </body>
