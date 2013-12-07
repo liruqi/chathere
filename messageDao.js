@@ -1,24 +1,26 @@
 var mysql=require('mysql');
 var option=require('./setting');
 
-function User(user){
-        this.nickname=user.nickname;
-        this.password=user.password;
-        this.email=user.email;
+function Message(message){
+        this.message_id=user.message_id;
+        this.user_id=user.user_id;
+        this.pois_id=user.pois_id;
+        this.send_time=user.send_time;
+        this.content=user.content;
 }
 
-module.exports=User;
+module.exports=Message;
 
-User.prototype.save=function save(callback){
-        var user={nickname:this.nickname,email:this.email,password:this.password};
+Message.prototype.save=function save(callback){
+        var message={message_id:this.message_id,user_id:this.user_id,pois_id:this.pois_id,send_time:this.send_time,content:this.content};
         var client = mysql.createConnection(option);
         client.connect(function(err){
                 if (err) {
                         console.log(err);
                         return;
                 }
-                client.query('insert into user(email,nickname,password) values(?,?,?)',
-                        [user.email,user.nickname,user.password],
+                client.query('insert into message(user_id,pois_id,content) values(?,?,?)',
+                        [message.message_id,message.user_id,message.pois_id,message.content],
                         function(err,result){
                                 if(err) console.log(err);
                                 console.log(result);
@@ -28,19 +30,19 @@ User.prototype.save=function save(callback){
         });
 }
 
-User.prototype.getUserById=function getById(user_id,callback){
+User.prototype.getMessagesAfterId=function getById(message_id,pois_id,callback){
         var client=mysql.createConnection(option);
         client.connect(function(err){
                 if(err){
                         console.log(err);
                         return;
                 } 
-                client.query('select * from user where user_id=?',
-                        [user_id],
+                client.query('select * from user where message_id>? and pois_id=?',
+                        [message_id,pois_id],
                         function(err,result){
                                 console.log(result);
                                 callback(err,result);
                         }
                         );
         });
-}
+
