@@ -93,10 +93,12 @@ var ChatController=function($scope,$http,$window){
                                 if(response[index].message_id<=lastMsgId){
                                   continue;
                                 }
-                                if(response[index].user_id==JSON.parse(localStorage.user).user_id){
-                                response[index].position='right';
+                                if(!localStorage.user){
+                                  response[index].position='left';
+                                }else if(response[index].user_id==JSON.parse(localStorage.user).user_id){
+                                  response[index].position='right';
                                 }else{
-                                response[index].position='left';
+                                  response[index].position='left';
                                 }
                                 console.log(response);
                                 $scope.messages.push(response[index]);
