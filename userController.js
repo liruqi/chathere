@@ -9,7 +9,7 @@ var add=function(req,res){
         newUser.save(function(err,result){
                 if(err) res.end(JSON.stringify(err));
                 res.write(JSON.stringify(result));
-                res.end('注册成功');
+                res.end();
         });
 };
 

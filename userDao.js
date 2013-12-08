@@ -9,7 +9,7 @@ function User(user){
 
 module.exports=User;
 
-User.prototype.save=function save(callback){
+User.prototype.save=function(callback){
         var user={nickname:this.nickname,email:this.email,password:this.password};
         var client = mysql.createConnection(option);
         client.connect(function(err){
@@ -20,15 +20,22 @@ User.prototype.save=function save(callback){
                 client.query('insert into user(email,nickname,password) values(?,?,?)',
                         [user.email,user.nickname,user.password],
                         function(err,result){
-                                if(err) console.log(err);
+                                if(err) {
+                                        console.log(err);
+                                callback(err,{});
+                                return;
+                                }
                                 console.log(result);
-                                callback(err,result);
+                                delete user.password;
+                                user.user_id=result.insertId;
+                                console.log(user);
+                                callback(err,user);
                         }
                         );
         });
 }
 
-User.prototype.getUserById=function getById(user_id,callback){
+User.prototype.getUserById=function(user_id,callback){
         var client=mysql.createConnection(option);
         client.connect(function(err){
                 if(err){

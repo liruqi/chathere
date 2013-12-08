@@ -12,33 +12,30 @@
 
 
 <script type="text/javascript">
-var RoomController=function($scope,$http){
-    var showRoom=function(position){
-        var params = {}
-        if (position) {
-            params = {longitude:position.coords.longitude,latitude:position.coords.latitude}
-        }
-        var p=$http({method:'GET',
-                url:'/room',
-                params:params });
-        console.log(params);
-        p.success(function(response,status,headers,config){
-                        console.log(response);
-                if(response.pois.length > 0){
-                    localStorage.room = response.pois[0];
-                    $scope.room=response.pois[0];
-                    window.location=("/room.html?rid=" + $scope.room.id); 
-                }else{
-                var common_poi={};
-                common_poi.name='公共聊天室';
-                common_poi.uid=0;
-                $scope.room=common_poi;
+var RoomController=function($scope,$http,$window){
+        var showRoom=function(position){
+                var params = {}
+                if (position) {
+                        params = {longitude:position.coords.longitude,latitude:position.coords.latitude}
                 }
-                });
-    };
-    
-    navigator.geolocation.getCurrentPosition(showRoom, function(){showRoom()} );
-    setTimeout(function(){if ($scope.room) return; showRoom()}, 3000);
+                var p=$http({method:'GET',
+                                url:'/room',
+                                params:params });
+                console.log(params);
+                p.success(function(response,status,headers,config){
+                                console.log(response);
+                                if(response.pois.length > 0){
+                                localStorage.room = JSON.stringify(response.pois[0]);
+                                $scope.room=response.pois[0];
+                                console.log(response);
+                              $window.location.href=("/room.html"); 
+                                }
+                                }
+                         );
+        };
+
+        navigator.geolocation.getCurrentPosition(showRoom, function(){showRoom()} );
+        setTimeout(function(){if ($scope.room) return; showRoom()}, 3000);
 };
 </script>
 </body>

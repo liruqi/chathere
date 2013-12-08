@@ -5,43 +5,100 @@
 <title>聊天室</title>
 <link type="text/css" href="/css/main.css" rel="stylesheet" />
 <script type="text/javascript" src="/js/angular.js"></script>
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
 </head>
 <body>
-<div id="container">
-        <header>皇冠大厦聊天室</header>
-        <div id="chatContainer" ng-controller="ChatController">
+<div id="container" ng-controller="ChatController">
+        <header>{{room.name}}</header>
+        <div id="chatContainer">
                 <ul>
-                        <li ng-repeat="msg in messages" class={{'msg-'+msg.position}}>
-                          <p class="nickname clear">{{msg.nickname}}</p>
-                          <p class="msg-content clear">{{msg.content}}</p>
+                        <li ng-repeat="msg in messages | orderBy:'message_id':false" class={{'msg-'+msg.position}}>
+                        <p class="nickname clear">{{msg.nickname}}</p>
+                        <p class="msg-content clear">{{msg.content}}</p>
                         </li>
                 </ul>
                 <div id="chat-editor">
-                        <input type="text"><input type="submit" value="发送">
+                        <input type="text" ng-model="myMsg"><input type="submit" value="发送" ng-click="sendMsg()">
                 </div>
         </div>
 </div>
 
 <script type="text/javascript">
 var ChatController=function($scope,$http,$window){
-     var href=$window.location.href;
-     var rid=href.match(/\\?id=(.*)/)[1];
-     var user_id=localStorage.user_id||1;
+        var href=$window.location.href;
+        var room=localStorage.room;
+        if(!room){
+                $window.location.href="/index.html";
+        }
+        $scope.room=JSON.parse(localStorage.room);
+        console.log($scope.room.name);
+        var p=$http({method:'GET',url:'/message',params:{message_id:0,pois_id:$scope.room.id}});
+        p.success(function(response,status){
+                        console.log(response);
+                        for(var index in response){
+                        if(response[index].user_id== JSON.parse(localStorage.user).user_id){
+                        response[index].position='right';
+                        }else{
+                        response[index].position='left';
+                        }
+                        }
+                        $scope.messages=response;
+                        setInterval(updateMsg,1000);
+                        }
+                 );
 
-     var p=$http({method:'GET',url:'/message',params:{message_id:0,pois_id:rid}});
-     p.success(function(response,status){
-                     for(var index in response){
-                     if(response[index].user_id==user_id){
-                     response[index].position='right';
-                     }else{
-                     response[index].position='left';
-                     }
-                     }
-                     $scope.messages=response;
-                     console.log(response);
-                     }
-              );
+        $scope.sendMsg=function(){
+                var user=localStorage.user;
+                if(!user){
+                        $window.location.href="/register.html";
+                        return;
+                }
+                $scope.user=JSON.parse(user);
+                var myMsg=$scope.myMsg;
+                console.log(myMsg);
+                if(myMsg){
+                        var p=$http({method:'POST',url:'/message',data:{user_id:$scope.user.user_id,pois_id:$scope.room.id,content:myMsg}});
+                        p.success(function(response){
+                                        console.log(response);
+                                        for(var index in response){
+                                        if(response[index].user_id==$scope.user.user_id){
+                                        response[index].position='right';
+                                        }else{
+                                        response[index].position='left';
+                                        }
+                                        $scope.messages.push(response[index]);
+                                        }
+                                        $scope.myMsg='';
 
+                                        });
+                        p.error(function(response){
+                                        console.log('fail:'+response);
+                                        });
+                }
+        };
+        var updateMsg=function(){
+                if($scope.messages.length==0){return;}
+                $scope.messages.sort(function(msg1,msg2){
+                                return msg2.message_id-msg1.message_id;
+                                });
+                var p=$http({method:'GET',url:'/message',params:{message_id:$scope.messages[0].message_id,pois_id:$scope.room.id}});
+                p.success(function(response){
+                                console.log(response);
+                                var lastMsgId=$scope.messages[$scope.messages.length-1].message_id;
+                                for(var index=0;index<response.length;index++){
+                                if(response[index].message_id<=lastMsgId){
+                                  continue;
+                                }
+                                if(response[index].user_id==JSON.parse(localStorage.user).user_id){
+                                response[index].position='right';
+                                }else{
+                                response[index].position='left';
+                                }
+                                console.log(response);
+                                $scope.messages.push(response[index]);
+                                }
+                                });
+        };
 };
 </script>
 </body>

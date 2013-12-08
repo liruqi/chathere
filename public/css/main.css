@@ -1,16 +1,17 @@
 .clear{clear:both;}
-#container{width:320px;margin:0 auto;border:1px solid black;border-radius:6px;}
-header{text-align:center;}
+html,body{height:100%;}
+#container{width:320px;margin:0 auto;border:1px solid black;border-radius:6px;height:100%;}
+header{text-align:center;position:fixed;top:0px;width:320px;border-top-left-radius:5px;border-top-right-radius:5px;}
 html body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, fieldset, input, textarea, p, th, td, img, em {
 margin: 0;padding: 0;list-style-type:none;
 }
 #container header{line-height:30px;background:#6B7888;color:white;}
-#chatContainer{background:#EFF3F7;overflow:hidden;}
-#chatContainer ul{border-bottom:1px solid black;padding:0 6px 16px;}
+#chatContainer{background:#EFF3F7;overflow:hidden;height:100%;overflow:scroll;}
+#chatContainer ul{padding:0 6px 60px;}
 #chatContainer ul .nickname{line-height:30px;color:#ccc;}
 #chatContainer ul .msg-content{line-height:30px;color:black;padding:3px 6px;background:white;border-radius:5px;}
 #chatContainer ul p{max-width:80%;}
 #chatContainer li.msg-right p{float:right;}
-#chatContainer #chat-editor{position:fixed;bottom:0px;height:50px;width:320px;}
-#chat-editor input[type=text]{width:260px;height:30px}
+#chatContainer #chat-editor{position:fixed;bottom:0px;height:50px;width:320px;border-top:1px solid black;padding-top:10px;background:white;}
+#chat-editor input[type=text]{width:260px;height:30px;margin-left:8px;}
 #chat-editor input[type=submit]{background:#4f739f;color:white;float:right;height:32px;padding:0 5px;border:none;border-radius:5px;margin-right:10px}
