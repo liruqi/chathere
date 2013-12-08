@@ -28,8 +28,13 @@ var login=function(req,res){
   var password=req.body.password;
   var newUser=new User({});
   newUser.checkUser(email,password,function(err,result){
-    res.write(result);
-    res.end();
+      if (result) {
+          result.code = 0;
+          res.write(result);
+      } else {
+          res.write({code:1});
+      }
+      res.end();
   });
 };
 exports.get=get;

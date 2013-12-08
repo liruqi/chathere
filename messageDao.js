@@ -27,6 +27,7 @@ Message.prototype.save=function(callback){
                                 callback(err,result);
                         }
                         );
+                client.end();
         });
 };
 
@@ -44,6 +45,7 @@ Message.prototype.getMessagesAfterId=function(message_id,pois_id,callback){
                                 callback(err,result);
                         }
                         );
+                client.end();
         });
 };
 

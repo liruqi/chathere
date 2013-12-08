@@ -22,6 +22,29 @@
                   <label ng-module="message" >{{message}}</label>
   </ul>
 </div>
+
+<hr style="border-top: dotted 1px;" />
+
+<div id="register">  
+        <ul>
+                <li>
+                <label for="">昵称</label>
+                <input type="input" ng-model="user.nickname">
+                </li>
+                <li>
+                <label for="">邮箱</label>
+                <input type="input" ng-model="user.email">
+                </li>
+                <li>
+                <label for="">密码</label>
+                <input type="password" ng-model="user.password">
+                </li>
+                <li>
+                <input type="submit" value="注册" ng-click="doRegister()">
+                </li>
+        </ul>
+</div>
+
 <script type="text/javascript">
 var loginController=function($scope,$http,$window){
     $scope.doLogin=function(){
@@ -29,8 +52,8 @@ var loginController=function($scope,$http,$window){
         var p=$http({method:'POST',url:'/userlogin',data:$scope.user});
        console.log($scope.user);
         p.success(function(response){
-            localStorage.user=JSON.stringify(response);
-            if (localStorage.user.code == 0) {
+            localStorage.user=JSON.stringify(response.user);
+            if (response.code == 0) {
                 $scope.message = "登陆成功";
                 $window.location.href='/room.html';
             }
@@ -38,7 +61,17 @@ var loginController=function($scope,$http,$window){
                 $scope.message = "登陆失败";
         });
     };
+
+    $scope.doRegister=function(){
+          var p=$http({method:'POST',url:'/user',data:$scope.user});
+          p.success(function(response){
+                          localStorage.user=JSON.stringify(response);
+                          $window.location.href='/room.html';
+                          });
+        };
 };
+
+
 </script>
 </body>
 </html>
