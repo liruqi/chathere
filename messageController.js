@@ -22,7 +22,8 @@ var get=function(req,res){
   var newMsg=new Message({});
   newMsg.getMessagesAfterId(message_id,pois_id,function(err,result){
     res.setHeader("Content-Type", "application/json; charset=utf-8");
-          res.end(JSON.stringify(result));
+    console.log(result);      
+    res.end(JSON.stringify(result));
   });
 };
 
