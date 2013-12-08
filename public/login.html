@@ -21,11 +21,11 @@
           </li>
                   <label ng-module="message" >{{message}}</label>
   </ul>
-</div>
+</form>
 
 <hr style="border-top: dotted 1px;" />
 
-<div id="register" ng-submit="doRegister()">  
+<form id="register" ng-submit="doRegister()">  
         <ul>
                 <li>
                 <label for="">昵称</label>
@@ -43,7 +43,7 @@
                 <input type="submit" value="注册" >
                 </li>
         </ul>
-</div>
+</form>
 
 <script type="text/javascript">
 var loginController=function($scope,$http,$window){
