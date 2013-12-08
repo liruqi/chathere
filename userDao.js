@@ -31,7 +31,8 @@ User.prototype.save=function(callback){
                                 console.log(user);
                                 callback(err,user);
                         }
-                        ).close();
+                        );
+                client.end();
         });
 }
 
@@ -48,7 +49,8 @@ User.prototype.getUserById=function(user_id,callback){
                                 console.log(result);
                                 callback(err,result);
                         }
-                        ).close();
+                        );
+                client.end();
         });
 }
 
