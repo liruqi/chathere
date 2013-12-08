@@ -26,7 +26,7 @@ Message.prototype.save=function(callback){
                                 console.log(result);
                                 callback(err,result);
                         }
-                        );
+                        ).close();
         });
 };
 
@@ -43,7 +43,7 @@ Message.prototype.getMessagesAfterId=function(message_id,pois_id,callback){
                                 console.log(result);
                                 callback(err,result);
                         }
-                        );
+                        ).close();
         });
 };
 
