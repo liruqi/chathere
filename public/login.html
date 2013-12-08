@@ -10,11 +10,11 @@
   <ul>
           <li>
                   <label for="">邮箱</label>
-                  <input type="input" ng-module="user.email">
+                  <input type="input" ng-model="user.email">
           </li>
           <li>
                   <label for="">密码</label>
-                  <input type="password" ng-module="user.password">
+                  <input type="password" ng-model="user.password">
           </li>
           <li>
                   <input type="submit" value="登录" ng-click="doLogin()">
@@ -25,7 +25,9 @@
 <script type="text/javascript">
 var loginController=function($scope,$http,$window){
     $scope.doLogin=function(){
+            console.log('he');
         var p=$http({method:'POST',url:'/userlogin',data:$scope.user});
+       console.log($scope.user);
         p.success(function(response){
             localStorage.user=JSON.stringify(response);
             if (localStorage.user.code == 0) {

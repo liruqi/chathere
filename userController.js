@@ -25,7 +25,7 @@ var get=function(req,res){
 
 var login=function(req,res){
   var email=req.body.email;
-  var password=req.body.email;
+  var password=req.body.password;
   var newUser=new User({});
   newUser.checkUser(email,password,function(err,result){
     res.write(result);
