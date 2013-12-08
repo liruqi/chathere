@@ -6,7 +6,7 @@
         <script type="text/javascript" src="/js/angular.js"></script>
 </head>
 <body ng-controller = "loginController">
-<div id="login" >
+<form id="login" ng-submit="doLogin()">
   <ul>
           <li>
                   <label for="">邮箱</label>
@@ -17,7 +17,7 @@
                   <input type="password" ng-model="user.password">
           </li>
           <li>
-                  <input type="submit" value="登录" ng-click="doLogin()">
+                  <input type="submit" value="登录" >
           </li>
                   <label ng-module="message" >{{message}}</label>
   </ul>
@@ -25,7 +25,7 @@
 
 <hr style="border-top: dotted 1px;" />
 
-<div id="register">  
+<div id="register" ng-submit="doRegister()">  
         <ul>
                 <li>
                 <label for="">昵称</label>
@@ -40,7 +40,7 @@
                 <input type="password" ng-model="user.password">
                 </li>
                 <li>
-                <input type="submit" value="注册" ng-click="doRegister()">
+                <input type="submit" value="注册" >
                 </li>
         </ul>
 </div>
