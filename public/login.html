@@ -19,6 +19,7 @@
           <li>
                   <input type="submit" value="登录" ng-click="doLogin()">
           </li>
+                  <label ng-module="message" >{{message}}</label>
   </ul>
 </div>
 <script type="text/javascript">
@@ -26,9 +27,14 @@ var loginController=function($scope,$http,$window){
     $scope.doLogin=function(){
         var p=$http({method:'POST',url:'/userlogin',data:$scope.user});
         p.success(function(response){
-                localStorage.user=JSON.stringify(response);
+            localStorage.user=JSON.stringify(response);
+            if (localStorage.user.code == 0) {
+                $scope.message = "登陆成功";
                 $window.location.href='/room.html';
-                });
+            }
+            else 
+                $scope.message = "登陆失败";
+        });
     };
 };
 </script>
