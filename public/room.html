@@ -37,10 +37,12 @@ var ChatController=function($scope,$http,$window){
         p.success(function(response,status){
                         console.log(response);
                         for(var index in response){
-                        if(response[index].user_id== JSON.parse(localStorage.user).user_id){
-                        response[index].position='right';
+                        if(!localStorage.user){
+                           response[index].position='left';
+                        }else if(response[index].user_id== JSON.parse(localStorage.user).user_id){
+                           response[index].position='right';
                         }else{
-                        response[index].position='left';
+                          response[index].position='left';
                         }
                         }
                         $scope.messages=response;
@@ -62,6 +64,7 @@ var ChatController=function($scope,$http,$window){
                         p.success(function(response){
                                         console.log(response);
                                         for(var index in response){
+
                                         if(response[index].user_id==$scope.user.user_id){
                                         response[index].position='right';
                                         }else{
