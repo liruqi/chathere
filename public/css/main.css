@@ -13,5 +13,5 @@ margin: 0;padding: 0;list-style-type:none;
 #chatContainer ul p{max-width:80%;}
 #chatContainer li.msg-right p{float:right;}
 #chatContainer #chat-editor{position:fixed;bottom:0px;height:50px;width:320px;border-top:1px solid black;padding-top:10px;background:white;}
-#chat-editor input[type=text]{width:260px;height:30px;margin-left:8px;}
-#chat-editor input[type=submit]{background:#4f739f;color:white;float:right;height:32px;padding:0 5px;border:none;border-radius:5px;margin-right:10px}
+#chat-editor input[type=text]{width:240px;height:30px;margin-left:8px;}
+#chat-editor #sendMsg{background:#4f739f;color:white;float:right;height:32px;line-height: 32px;padding:0 5px;border:none;border-radius:5px;margin-right:10px}
