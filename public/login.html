@@ -5,21 +5,32 @@
         <title>用户登录</title>
         <script type="text/javascript" src="/js/angular.js"></script>
 </head>
-<body>
-<form action="/userlogin" method="post">
+<body ng-controller = "loginController">
+<div id="login" >
   <ul>
           <li>
                   <label for="">邮箱</label>
-                  <input type="input" name="email">
+                  <input type="input" ng-module="user.email">
           </li>
           <li>
                   <label for="">密码</label>
-                  <input type="password" name="password">
+                  <input type="password" ng-module="user.password">
           </li>
           <li>
-                  <input type="submit" value="登录">
+                  <input type="submit" value="登录" ng-click="doLogin()">
           </li>
   </ul>
-</form> 
+</div>
+<script type="text/javascript">
+var loginController=function($scope,$http,$window){
+    $scope.doLogin=function(){
+        var p=$http({method:'POST',url:'/userlogin',data:$scope.user});
+        p.success(function(response){
+                localStorage.user=JSON.stringify(response);
+                $window.location.href='/room.html';
+                });
+    };
+};
+</script>
 </body>
 </html>
