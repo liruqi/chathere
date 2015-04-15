@@ -7,7 +7,7 @@ margin: 0;padding: 0;list-style-type:none;
 }
 #container header{line-height:30px;background:#6B7888;color:white;}
 #chatContainer{background:#EFF3F7;overflow:hidden;height:100%;overflow:scroll;position:relative;}
-#chatContainer>ul{position: absolute;bottom: 0px;}
+#chatContainer>ul{position: absolute;bottom: 0px; width: 300px;}
 #chatContainer ul{padding:0 6px 60px;}
 #chatContainer ul .nickname{line-height:30px;color:#ccc;}
 #chatContainer ul .msg-content{line-height:30px;color:black;padding:3px 6px;background:white;border-radius:5px;}

@@ -30,7 +30,7 @@ var getGooglePlace  = function(latitude, longitude, res) {
 }
 
 var get=function(req,res){
-        var poi={name: "hello wrold",
+        var poi={name: "Tech Temple",
              id: "6237ce126ba1afabd5985b059d3d1eca6e9ee0da"};
         var pois_json={};
         pois_json.pois=[poi];
